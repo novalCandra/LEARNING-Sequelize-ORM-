@@ -1,13 +1,82 @@
-require("dotenv").config()
-const express = require("express");
+require("dotenv").config();
+
+const express =
+    require("express");
+
+const cors =
+    require("cors");
+
+const routes =
+    require("./routes/index");
+
+const {
+    sequelize
+} = require("./models");
+
 const app = express();
-const port =process.env.SERVER_PORT || 3000;
 
+app.use(cors());
 
-app.get("/", (req, res) => {
-    res.send("LEARNING Api data")
-})
+app.use(express.json());
 
-app.listen(port, () => {
-    console.log(`API BERJALAN PADA PORT : http://localhost:${port}`)
-})
+app.get(
+    "/",
+    (req, res) => {
+        return res.status(200).json({
+            message:
+                "Node.js REST API Part 3",
+
+            data: null,
+        });
+    }
+);
+
+app.use(
+    "/api",
+    routes
+);
+
+app.use(
+    (
+        error,
+        req,
+        res,
+        next
+    ) => {
+        console.error(error);
+
+        return res
+            .status(500)
+            .json({
+                message:
+                    "Internal server error",
+
+                data: null,
+            });
+    }
+);
+
+const PORT =
+    process.env.SERVER_PORT ||
+    3000;
+
+const start = async () => {
+    await sequelize.authenticate();
+
+    console.log(
+        "Database connected"
+    );
+
+    app.listen(
+        PORT,
+        () => {
+            console.log(
+                `Server running on http://localhost:${PORT}`
+            );
+        }
+    );
+};
+
+start().catch(
+    console.error
+);
