@@ -43,22 +43,24 @@ jobs:
 
       - name: Run Database Migrations
         env:
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_USER: test_user
-          DB_PASS: test_password
-          DB_NAME: test_db
-          DB_DIALECT: mysql
           NODE_ENV: test
+          SERVER_PORT: 3000
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_PORT: 3306
+          DATABASE_USER: test_user
+          DATABASE_PASSWORD: test_password
+          DATABASE_NAME: test_db
+          JWT_SECRET: harisenin_super_secret
         run: npx sequelize-cli db:migrate
 
       - name: Run Unit Tests
         env:
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_USER: test_user
-          DB_PASS: test_password
-          DB_NAME: test_db
-          DB_DIALECT: mysql
           NODE_ENV: test
+          SERVER_PORT: 3000
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_PORT: 3306
+          DATABASE_USER: test_user
+          DATABASE_PASSWORD: test_password
+          DATABASE_NAME: test_db
+          JWT_SECRET: harisenin_super_secret
         run: npm test
