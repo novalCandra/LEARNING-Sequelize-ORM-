@@ -72,7 +72,6 @@ const deleteUsers = async (req, res, next) => {
 
 const ProfileUsers = async (req, res, next) => {
   const userId = req.user.id;
-  console.log(userId)
   try {
     const DataProfile = await serviceGetProfile(userId);
     return res.status(201).json({
