@@ -80,3 +80,5 @@ const start = async () => {
 start().catch(
     console.error
 );
+
+module.exports = app;
